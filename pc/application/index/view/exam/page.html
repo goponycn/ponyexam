@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{include file="common/meta" /}
+		<link href="__CDN__/assets/css/user.css?v={$Think.config.site.version}" rel="stylesheet">
+	</head>
+	<style>
+		.timer {
+		color: #00E765;
+	   }
+      .top{
+		  position:fixed; 
+		  width:100%; 
+		  background:#ffffff;
+		  z-index: 10; 
+       }
+	  .box{
+	  		height: 15px;
+	         margin: 0;
+    	}
+	  .line{	
+       border:1px; 
+	   border-bottom-style: solid;
+	   border-top-style: none;
+	   border-left-style:none;
+	   border-right-style:none;
+	   width: 80%;
+       }
+	   .multiple{
+		 width: 80%;
+	   }
+	   .title{
+	   		position:relative;	   		
+	   		line-height:40px;
+	   		font-size:16px;
+	   		text-indent: 1px;
+			font-weight:bold;
+	   	}
+		
+		.content-box{
+				background-color: #FFFFFF;
+				border-radius: 3px;
+				padding:0px;
+				margin-top: 15px;
+				overflow: hidden;
+				.padding{
+					padding:20px;
+				}
+		}
+
+
+
+	</style>
+	<body>
+
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container navbar-fixed-top">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#header-navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="{:url('/')}">{$site.name}</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="header-navbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<h3 class="timer"><span id="timerh">00</span>:<span id="timerm">00</span>:<span id="timers">00</span></h3>
+						</li>
+
+						<li>
+							<a href="javascript:;" id="finishpager" class="menu">
+								<span class="glyphicon glyphicon-file"></span> 交卷
+							</a>
+						</li>
+						<li>
+							<a href="javascript:;" id="savepager" class="menu">
+								<span class="glyphicon glyphicon-save-file"></span> 保存
+							</a>
+						</li>
+						<li class="dropdown">
+							{if $user}
+							<a href="{:url('user/index')}" class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px;height: 50px;">
+								<span class="avatar-img"><img src="{$user.avatar|cdnurl}" alt=""></span>
+							</a>
+							{else /}
+							<a href="{:url('user/index')}" class="dropdown-toggle" data-toggle="dropdown">{:__('User center')} <b class="caret"></b></a>
+							{/if}
+							<ul class="dropdown-menu">
+								{if $user}
+								<li><a href="{:url('user/index')}"><i class="fa fa-user-circle fa-fw"></i>{:__('User center')}</a></li>
+								<li><a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i>{:__('Profile')}</a></li>
+								<li><a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i>{:__('Change password')}</a></li>
+								<li><a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i>{:__('Sign out')}</a></li>
+								{else /}
+								<li><a href="{:url('user/login')}"><i class="fa fa-sign-in fa-fw"></i> {:__('Sign in')}</a></li>
+								<li><a href="{:url('user/register')}"><i class="fa fa-user-o fa-fw"></i> {:__('Sign up')}</a></li>
+								{/if}
+
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+
+		<div class="container fixtop top">
+
+			<ul id="questionTabs" class="nav nav-tabs" role="tablist">
+				{foreach name='questions' item="vo" key="i"}
+				<li>
+					<a href="#qtc{$i}" role="tab" data-toggle="tab">
+						第{$vo['n']}大题
+					</a>
+				</li>
+				{/foreach}
+			</ul>
+
+
+			<div id="questionTabContent" class="tab-content" data-spy="affix">
+				{foreach name='questions' item="vo" key="i"}
+				<div class="tab-pane fade " id="qtc{$i}">
+					<p>
+						{foreach name="vo['question']" item="question" key="j"}
+						<a id="qs_{$question['id']}" class="btn  btn-xs qindex btn-default" rel="{$question['id']}">{$question['n']}</a>
+						{/foreach}
+					</p>
+				</div>
+				{/foreach}
+			</div>
+
+		</div>
+
+		<main class="content">
+
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="pages">
+						<div class="box">
+						</div>
+						<div class="content">
+							<div class="col-xs-1"></div>
+							<form class="col-xs-10 nopadding" id="paper" action="/index/exam/finish">
+								<input type="hidden" name="id" id="id" value="{$row['id']}" />
+								<input type="hidden" name="lefttime" id="lefttime" value="{$lefttime}" />
+
+								<h3 class="title" style="text-align:center;">
+									{$row['papername']}
+								</h3>
+								<h4 class="title" style="text-align:center;">
+									时间:{$exam['times']}分钟
+								</h4>
+
+								{foreach name='questions' item="vo" key="i"}
+								<h4 class="title">
+									{$vo['n']}. {$vo['title']} (每小题{$vo['score']}分)
+								</h4>
+								{foreach name="vo['question']" item="question" key="j"}
+								<div class="content-box padding">
+									<h4 class="title">
+										<a id="q_{$question['id']}"></a>
+									</h4>
+									<ul class="list-unstyled list-img">
+										<li class="border morepadding">
+											<div class="desc">
+												<p>{$question['n']}. {$question['content']}</p>
+											</div>
+										</li>
+										<li class="border morepadding">答题:
+											{switch name="question['type']"}
+											{case value="1"}
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="A"
+												 {php}if( $answers[$question['id']]=='A' ) echo 'checked' ;{/php}/> <span class="selector">A</span> </label>
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="B"
+												 {php}if( $answers[$question['id']]=='B' ) echo 'checked' ;{/php}/> <span class="selector">B</span> </label>
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="C"
+												 {php}if( $answers[$question['id']]=='C' ) echo 'checked' ;{/php}/> <span class="selector">C</span> </label>
+											{switch name="question['quantity']"}
+											{case value="4"}
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+												 {php}if( $answers[$question['id']]=='D' ) echo 'checked' ;{/php}/> <span class="selector">D</span> </label>
+											{/case}
+											{case value="5"}
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+												 {php}if( $answers[$question['id']]=='D' ) echo 'checked' ;{/php}/> <span class="selector">D</span> </label>
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="E"
+												 {php}if( $answers[$question['id']]=='E' ) echo 'checked' ;{/php}/> <span class="selector">E</span> </label>
+											{/case}
+											{/switch}
+											{/case}
+											{case value="2"}
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}][1]" rel="{$question['id']}" value="A"
+												 {php}if(strpos($answers[$question['id']],'A') !==false ) echo 'checked' ;{/php} /><span class="selector">A</span>
+											</label>
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}][2]" rel="{$question['id']}" value="B"
+												 {php}if(strpos($answers[$question['id']],'B') !==false ) echo 'checked' ;{/php} /><span class="selector">B</span>
+											</label>
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}][3]" rel="{$question['id']}" value="C"
+												 {php}if(strpos($answers[$question['id']],'C') !==false ) echo 'checked' ;{/php} /><span class="selector">C</span>
+											</label>
+											{switch name="question['quantity']"}
+											{case value="4"}
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}][4]" rel="{$question['id']}" value="D"
+												 {php}if(strpos($answers[$question['id']],'D') !==false ) echo 'checked' ;{/php} /><span class="selector">D</span>
+											</label>
+											{/case}
+											{case value="5"}
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}][5]" rel="{$question['id']}" value="D"
+												 {php}if(strpos($answers[$question['id']],'D') !==false ) echo 'checked' ;{/php} /><span class="selector">D</span>
+											</label>
+											<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="E"
+												 {php}if(strpos($answers[$question['id']],'E') !==false ) echo 'checked' ;{/php} /><span class="selector">E</span>
+											</label>
+											{/case}
+											{/switch}
+											{/case}
+											{case value="3"}
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="A"
+												 {php}if( $answers[$question['id']]=='A' ) echo 'checked' ;{/php}/> <span class="selector">对</span> </label>
+											<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="B"
+												 {php}if( $answers[$question['id']]=='B' ) echo 'checked' ;{/php}/> <span class="selector">错</span> </label>
+											{/case}
+											{case value="4"}
+											<input type="text" class="line" name="answers[{$question['id']}]" placeholder="点击此处填写答案,多个填空用空格分隔" rel="{$question['id']}"
+											 value="{php} echo $answers[$question['id']]; {/php}" />
+											{/case}
+
+											{default /}
+											<textarea type="simple" class="multiple" id="editor{$question['id']}" name="answers[{$question['id']}]" rel="{$question['id']}">{php} echo $answers[$question['id']]; {/php}</textarea>
+											{/switch}
+
+										</li>
+									</ul>
+								</div>
+								{/foreach}
+								{/foreach}
+							</form>
+
+
+							<div class="col-xs-1">
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+		</main>
+
+		<footer class="footer" style="clear:both">
+			<p class="copyright">Copyright&nbsp;©&nbsp;2017-2020 {$site.name} All Rights Reserved <a href="http://www.beian.miit.gov.cn"
+				 target="_blank">{$site.beian|htmlentities}</a></p>
+		</footer>
+
+
+		{include file="common/script" /}
+
+	</body>
+
+</html>

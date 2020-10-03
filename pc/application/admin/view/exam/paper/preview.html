@@ -1,0 +1,18 @@
+
+<div class="form-group">
+	<h3 align="center">{$row.name|htmlentities}</h3>
+</div>
+<div class="form-group">
+	<h5 align="center">试卷总分 {$row.totalscore|htmlentities} 分 <br> 考试时间 {$row.times|htmlentities} 分钟</h5>
+</div>
+
+{foreach name='questions'  item="vo" key="i"}
+    <div class="form-group">
+        <h4>{$vo['n']}.{$vo['title']}</h4>
+    </div>
+    {foreach name="vo['question']"  item="question" key="j"}
+       <div class="form-group">
+            <h5>{$question['n']}. {$question['content']}<br></h5>
+	   </div>
+    {/foreach}
+{/foreach}

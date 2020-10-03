@@ -1,0 +1,260 @@
+<style>
+	.navbar-header{
+		top: 0;
+	    position:fixed;
+	    width:98%; 
+	    background:#ffffff;
+	    z-index: 10; 	   
+		height: 20px;
+	    margin: 0;
+		float:right;
+		text-align:right;
+	 }
+	 
+      .navbar-bar{
+		  top: 20px;
+		  position:fixed; 
+		  width:100%; 
+		  background:#ffffff;
+		  z-index: 9; 
+       }
+	   
+
+			
+	  .box{
+	  		height: 30px;
+	         margin: 0;
+    	}
+	  .score{
+		   width:60px; 
+	  }	
+	  .decide{
+		  float:right;
+		  text-align:right;
+		  
+	  }
+	  .line{	
+       border:1px; 
+	   border-bottom-style: solid;
+	   border-top-style: none;
+	   border-left-style:none;
+	   border-right-style:none;
+	   width: 80%;
+       }
+	   .multiple{
+		 width: 80%;
+	   }
+	   .title{
+	   		position:relative;	   		
+	   		line-height:40px;
+	   		font-size:16px;
+	   		text-indent: 1px;
+			font-weight:bold;
+	   	}
+		
+		.content-box{
+				background-color: #FFFFFF;
+				border-radius: 3px;
+				padding:0px;
+				margin-top: 15px;
+				overflow: hidden;
+				.padding{
+					padding:20px;
+				}
+		}
+		.right{
+				 color:blue;
+		}
+		.wrong{
+				 color:red;
+		}
+		.warning{
+				 color:orange;
+		}
+		
+		
+	</style>
+
+<div class=" navbar-header ">
+	        考生名称:{$row.usernickname}
+			考试得分:<span id="totalscore">0</span>
+			
+			<a href="javascript:;" id="score" class="btn  btn-success">
+				<span class="glyphicon glyphicon-file"></span>批阅
+			</a>
+</div>
+
+<div class="container navbar-bar">
+
+
+
+	<ul id="questionTabs" class="nav nav-tabs" role="tablist">
+		{foreach name='questions' item="vo" key="i"}
+		<li>
+			<a href="#qtc{$i}" role="tab" data-toggle="tab">
+				第{$vo['n']}大题
+			</a>
+		</li>
+		{/foreach}
+	</ul>
+
+
+	<div id="questionTabContent" class="tab-content" data-spy="affix">
+		{foreach name='questions' item="vo" key="i"}
+		<div class="tab-pane fade " id="qtc{$i}">
+			<p>
+				{foreach name="vo['question']" item="question" key="j"}
+				<a id="qs_{$question['id']}" class="btn  btn-xs qindex btn-default" rel="{$question['id']}">{$question['n']}</a>
+				{/foreach}
+			</p>
+		</div>
+		{/foreach}
+	</div>
+
+</div>
+
+<div class="box">
+</div>
+
+<div class="content">
+
+
+	<form class="col-xs-11 nopadding" id="paper" action="exam/decide/score">
+		<input type="hidden" name="id" id="id" value="{$row['id']}" />
+
+		<h3 class="title" style="text-align:center;">
+			{$row['papername']}
+		</h3>
+		<h4 class="title" style="text-align:center;">
+			时间:{$exam['times']}分钟
+		</h4>
+
+		{foreach name='questions' item="vo" key="i"}
+		<h4 class="title">
+			{$vo['n']}. {$vo['title']} (每小题{$vo['score']}分)
+		</h4>
+		{foreach name="vo['question']" item="question" key="j"}
+		<div class="content-box padding">
+			<h4 class="title">
+				<a id="q_{$question['id']}"></a>
+			</h4>
+			<ul class="list-unstyled list-img">
+				<li class="border morepadding">
+					<div class="desc">
+						<p>{$question['n']}. {$question['content']}</p>
+					</div>
+				</li>
+				<li class="border morepadding">答题:
+					{switch name="question['type']"}
+					{case value="1"}
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="A"
+						 {php}if( $answers[$question['id']]=='A' ) echo 'checked' ;{/php} disabled /> <span class="selector">A</span>
+					</label>
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="B"
+						 {php}if( $answers[$question['id']]=='B' ) echo 'checked' ;{/php} disabled /> <span class="selector">B</span>
+					</label>
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="C"
+						 {php}if( $answers[$question['id']]=='C' ) echo 'checked' ;{/php} disabled /> <span class="selector">C</span>
+					</label>
+					{switch name="question['quantity']"}
+					{case value="4"}
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+						 {php}if( $answers[$question['id']]=='D' ) echo 'checked' ;{/php} disabled /> <span class="selector">D</span>
+					</label>
+					{/case}
+					{case value="5"}
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+						 {php}if( $answers[$question['id']]=='D' ) echo 'checked' ;{/php} disabled /> <span class="selector">D</span>
+					</label>
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="E"
+						 {php}if( $answers[$question['id']]=='E' ) echo 'checked' ;{/php} disabled /> <span class="selector">E</span>
+					</label>
+					{/case}
+					{/switch}
+					{/case}
+					{case value="2"}
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="A"
+						 {php}if(strpos($answers[$question['id']],'A') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">A</span>
+					</label>
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="B"
+						 {php}if(strpos($answers[$question['id']],'B') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">B</span>
+					</label>
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="C"
+						 {php}if(strpos($answers[$question['id']],'C') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">C</span>
+					</label>
+					{switch name="question['quantity']"}
+					{case value="4"}
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+						 {php}if(strpos($answers[$question['id']],'D') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">D</span>
+					</label>
+					{/case}
+					{case value="5"}
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="D"
+						 {php}if(strpos($answers[$question['id']],'D') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">D</span>
+					</label>
+					<label class="inline"><input type="checkbox" name="answers[{$question['id']}]" rel="{$question['id']}" value="E"
+						 {php}if(strpos($answers[$question['id']],'E') !==false ) echo 'checked' ;{/php} disabled /><span class="selector">E</span>
+					</label>
+					{/case}
+					{/switch}
+					{/case}
+					{case value="3"}
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="A"
+						 {php}if( $answers[$question['id']]=='A' ) echo 'checked' ;{/php} disabled /> <span class="selector">对</span>
+					</label>
+					<label class="inline"><input type="radio" name="answers[{$question['id']}]" rel="{$question['id']}" value="B"
+						 {php}if( $answers[$question['id']]=='B' ) echo 'checked' ;{/php} disabled /> <span class="selector">错</span>
+					</label>
+					{/case}
+					{case value="4"}
+					<input type="text" class="line" name="answers[{$question['id']}]" placeholder="点击此处填写答案,多个填空用空格分隔" rel="{$question['id']}"
+					 value="{php} echo $answers[$question['id']]; {/php}" readonly />
+					{/case}
+
+					{default /}
+					<textarea type="simple" class="multiple" id="editor{$question['id']}" name="answers[{$question['id']}]" rel="{$question['id']}"
+					 readonly>{php} echo $answers[$question['id']]; {/php}</textarea>
+					{/switch}
+
+				</li>
+
+				<li class="border morepadding">
+					<div class="desc">
+						<p>答案: {$question['answer']}</p>
+					</div>
+				</li>
+				<li class="border morepadding decide">
+					<label class="inline"><input type="radio" name="scorelist[{$question['id']}][decide]" rel="{$question['id']}"
+						 value="1" {php}if( $scorelist[$question['id']]['decide']=='1' ) echo 'checked' ;{/php} /> <span class="selector right">√</span>
+					</label>
+
+					{switch name="question['type']"}
+					{case value="4"}
+					<label class="inline"><input type="radio" name="scorelist[{$question['id']}][decide]" rel="{$question['id']}"
+						 value="2" {php}if( $scorelist[$question['id']]['decide']=='2' ) echo 'checked' ;{/php} /> <span class="selector warning">乄</span>
+					</label>
+
+					{/case}
+					{case value="9"}
+					<label class="inline"><input type="radio" name="scorelist[{$question['id']}][decide]" rel="{$question['id']}"
+						 value="2" {php}if( $scorelist[$question['id']]['decide']=='2' ) echo 'checked' ;{/php} /> <span class="selector warning">乄</span>
+					</label>
+
+					{/case}
+					{/switch}
+					<label class="inline"><input type="radio" name="scorelist[{$question['id']}][decide]" rel="{$question['id']}"
+						 value="3" {php}if( $scorelist[$question['id']]['decide']=='3' ) echo 'checked' ;{/php} /> <span class="selector wrong">X</span>
+					</label>
+					<label class="inline">得分 </label>
+					<input type="number" name="scorelist[{$question['id']}][score]" rel="{$question['id']}" value={php} echo
+					 $scorelist[$question['id']]['score']; {/php} min=0 max={$vo['score']}  id="s_{$question['id']}" class="score"/>
+
+				</li>
+			</ul>
+		</div>
+		{/foreach}
+		{/foreach}
+	</form>
+
+
+</div>
