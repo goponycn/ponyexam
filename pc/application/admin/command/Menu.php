@@ -195,7 +195,7 @@ class Menu extends Command
         array_unshift($pathArr, '', 'application', 'admin', 'controller');
         $classFile = ROOT_PATH . implode(DS, $pathArr) . $classSuffix . ".php";
         $classContent = file_get_contents($classFile);
-        $uniqueName = uniqid("FastAdmin") . $classSuffix;
+        $uniqueName = uniqid("Ponyedu") . $classSuffix;
         $classContent = str_replace("class " . $controllerArr[$key] . $classSuffix . " ", 'class ' . $uniqueName . ' ', $classContent);
         $classContent = preg_replace("/namespace\s(.*);/", 'namespace ' . __NAMESPACE__ . ";", $classContent);
 

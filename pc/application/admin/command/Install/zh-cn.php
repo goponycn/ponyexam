@@ -1,7 +1,7 @@
 <?php
 return [
     'Warning'                                                                                               => '温馨提示',
-    'Installing FastAdmin'                                                                                  => '安装FastAdmin',
+    'Installing Ponyexam'                                                                                  => '安装小马考试ponyexam',
     'Mysql Hostname'                                                                                        => 'MySQL 数据库地址',
     'Mysql Database'                                                                                        => 'MySQL 数据库名',
     'Mysql Username'                                                                                        => 'MySQL 用户名',

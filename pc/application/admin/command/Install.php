@@ -113,7 +113,7 @@ class Install extends Command
             $mysqlUsername = $this->request->post('mysqlUsername', 'root');
             $mysqlPassword = $this->request->post('mysqlPassword', '');
             $mysqlDatabase = $this->request->post('mysqlDatabase', '');
-            $mysqlPrefix = $this->request->post('mysqlPrefix', 'fa_');
+            $mysqlPrefix = $this->request->post('mysqlPrefix', 'po_');
             $adminUsername = $this->request->post('adminUsername', 'admin');
             $adminPassword = $this->request->post('adminPassword', '');
             $adminPasswordConfirmation = $this->request->post('adminPasswordConfirmation', '');
@@ -159,13 +159,13 @@ class Install extends Command
         if (!preg_match("/^[\S]{6,16}$/", $adminPassword)) {
             throw new Exception(__('Please input correct password'));
         }
-        if ($siteName == '' || preg_match("/fast" . "admin/i", $siteName)) {
+        if ($siteName == '' || preg_match("/pony" . "exam/i", $siteName)) {
             throw new Exception(__('Please input correct website'));
         }
 
-        $sql = file_get_contents(INSTALL_PATH . 'fastadmin.sql');
+        $sql = file_get_contents(INSTALL_PATH . 'ponyexam.sql');
 
-        $sql = str_replace("`fa_", "`{$mysqlPrefix}", $sql);
+        $sql = str_replace("`po_", "`{$mysqlPrefix}", $sql);
 
         // 先尝试能否自动创建数据库
         $config = Config::get('database');
