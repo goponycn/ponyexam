@@ -15,16 +15,12 @@
 
 ## 安装使用
 
-https://gitee.com/ponyedu/ponyexam
+请下载源码安装体验全部功能
 
-用户名：admin
-
-密　码：123456
-
-提　示：请下载源码安装体验全部功能
+下载解压后将public目录配置到Nginx/Apache的虚拟主机目录中，运行 http://您的站点/install.php 自动完成安装。
 
 ## 界面截图
-![控制台](https://gitee.com/uploads/ "控制台")
+![控制台]((https://gitee.com/ponyedu/ponyexam/blob/master/screenshot/admin-dashboard.png) "控制台")
 
 ## 问题反馈
 
@@ -32,7 +28,7 @@ https://gitee.com/ponyedu/ponyexam
 
 QQ: 3421518028
 
-Gitee: https://gitee.com/ponyedu/ponyexam
+Gitee: https://gitee.com/ponyedu/
 
 ## 特别鸣谢
 
