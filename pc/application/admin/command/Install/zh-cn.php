@@ -13,7 +13,7 @@ return [
     'Admin Password'                                                                                        => '管理者密码',
     'Repeat Password'                                                                                       => '重复密码',
     'Website'                                                                                               => '网站名称',
-    'My Website'                                                                                            => '我的网站',
+    'My Website'                                                                                            => '小马考试',
     'Install now'                                                                                           => '点击安装',
     'Installing'                                                                                            => '安装中...',
     'Home'                                                                                                  => '访问首页',

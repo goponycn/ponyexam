@@ -42,14 +42,10 @@ class Question extends Model
 
 		self::beforeInsert(function ($row) {
 			 if (isset($row['content'])) {
-				if (strlen($row['content'])>50){
-            	        $row->title = trim(my_substr($row['content'],0,50)) ;					
-				} else {
-					    $row->title = $row['content'];
-				}
-			    if ($row->title <> $row['content']){
-					 $row->title =  $row->title . '...';
-				}
+				 $row->title = trim($row['content']);
+				 if (strlen($row->title)>50){
+				 	        $row->title = trim(my_substr($row->title,0,50)). '...';					
+				 } 
 			 }
 			 $auth = \app\admin\library\Auth::instance();	
 			 $row->operator = $auth->nickname; 
@@ -59,15 +55,10 @@ class Question extends Model
 		    $changed = $row->getChangedData();
 		    if (isset($changed['content'])) {
 		        if ($changed['content']) {
-					if (strlen($changed['content'])>50){
-					        $row->title = trim(my_substr($changed['content'],0,50));					
-					} else {
-						    $row->title = $changed['content'];
-					}  
-					if ($row->title <> $row['content']){
-							$row->title =  $row->title . '...';
-					}
-					
+					$row->title = trim($changed['content']);
+					if (strlen($row->title)>50){
+						        $row->title = trim(my_substr($row->title,0,50)). '...';					
+					} 					
 		        } else {
 		            unset($row->content);
 		        }
@@ -79,6 +70,7 @@ class Question extends Model
     }
 
    
+	
 	public function getTypeList()
 	{
 	    return ['1' => __('Single'), '2' => __('Multiple'), '3' => __('Judge'), '4' => __('Fill'), '9' => __('Other')];
