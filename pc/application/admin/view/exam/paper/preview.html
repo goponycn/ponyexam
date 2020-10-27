@@ -13,6 +13,11 @@
     {foreach name="vo['question']"  item="question" key="j"}
        <div class="form-group">
             <h5>{$question['n']}. {$question['content']}<br></h5>
+			{if condition="isset($question['attachment']) and ($question['attachment'] neq '')"}
+			<div>
+				<a href="{$question['attachment']}"><img src="{$question['attachment']}" alt="" style="max-height: 300px"></a>
+			</div>
+			{/if}
 	   </div>
     {/foreach}
 {/foreach}

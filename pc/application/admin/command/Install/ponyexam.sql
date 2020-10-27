@@ -476,6 +476,7 @@ CREATE TABLE `po_question` (
   `weigh` int(11) NOT NULL DEFAULT '0' COMMENT '权重',
   `difficulty` int(1) NOT NULL DEFAULT '0' COMMENT '难易程度:1=易2=中3=难',
   `status` enum('normal','hidden') DEFAULT 'normal' COMMENT '状态',
+  `attachment` varchar(128) DEFAULT '' COMMENT '图片附件',
   PRIMARY KEY (`id`),
   KEY `question_type` (`type`),
   KEY `question_createtime` (`createtime`),

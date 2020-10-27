@@ -246,9 +246,11 @@ class Paper extends Backend
 				  $questions[$key1]['question'][$key2]['id']= $value2;
 				  $questions[$key1]['question'][$key2]['content'] ='';
 				  $where['id']=$value2;
-				  $arr = \app\admin\model\question\Question::where($where)->select();
-				  if ($arr)
-				         $questions[$key1]['question'][$key2]['content']= nl2br(str_replace(chr(32),'&nbsp;',$arr[0]['content']));;
+				  $arr = \app\admin\model\question\Question::where($where)->find();
+				  if ($arr){
+				         $questions[$key1]['question'][$key2]['content']= nl2br(str_replace(chr(32),'&nbsp;',$arr['content']));;
+					     $questions[$key1]['question'][$key2]['attachment'] = $arr['attachment'];
+				  }
 			}	
 	    }
    	

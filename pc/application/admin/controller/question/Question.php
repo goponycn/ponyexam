@@ -249,7 +249,9 @@ class Question extends Backend
 				$answer =  $worksheet->getCellByColumnAndRow('10', $i)->getValue();
 	            $answer = $answer ? $answer:'';
 				$analysis =  $worksheet->getCellByColumnAndRow('11', $i)->getValue();
-	            $analysis = $analysis ? $analysis:'';				
+	            $analysis = $analysis ? $analysis:'';	
+				$attachment =  $worksheet->getCellByColumnAndRow('12', $i)->getValue();
+				$attachment = $attachment ? $attachment:'';				
 	            $title = trim($content);
 	            if (strlen($title)>50){
 	            	$title = trim(my_substr($title,0,50)). '...';					
@@ -269,6 +271,7 @@ class Question extends Backend
 			          'content' => $content,
 			          'answer' => $answer,
 			          'analysis' => $analysis,
+					  'attachment' => $attachment,
 				      'title' => $title,
 					  'operator' => $operator,
 					  'createtime' => time(),
@@ -364,7 +367,7 @@ class Question extends Backend
 		    $worksheet->getCell( 'I1' )->setValue( '题目' );
 		    $worksheet->getCell( 'J1' )->setValue( '答案' );
 		    $worksheet->getCell( 'K1' )->setValue( '解析' );
-			
+			$worksheet->getCell( 'L1' )->setValue( '图片' );
 		    $i = 2;
 		    foreach ( $list as $row ) {
 		        $worksheet->getCell( 'A' . $i )->setValue( $row->id );
@@ -378,6 +381,7 @@ class Question extends Backend
 			    $worksheet->getCell( 'I' . $i )->setValue( $row->content );
 			    $worksheet->getCell( 'J' . $i )->setValue( $row->answer );
 			    $worksheet->getCell( 'K' . $i )->setValue( $row->analysis );
+				$worksheet->getCell( 'L' . $i )->setValue( $row->attachment );
 		        $i ++;
 		    }
 			

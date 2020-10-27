@@ -17,8 +17,8 @@
                 <div class="widget-body no-padding">
                     <div id="toolbar" class="toolbar">
                         <a href="javascript:;" class="btn btn-primary btn-refresh" title="{:__('Refresh')}" ><i class="fa fa-refresh"></i> </a>
-                        <a href="javascript:;" class="btn btn-success btn-add {:$auth->check('question/fill/add')?'':'hide'}" title="{:__('Add')}" ><i class="fa fa-plus"></i> {:__('Add')}</a>
-                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('question/fill/edit')?'':'hide'}" title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>
+                        <a href="javascript:;" class="btn btn-success btn-add {:$auth->check('question/fill/add')?'':'hide'}" data-area='["90%","90%"]' title="{:__('Add')}" ><i class="fa fa-plus"></i> {:__('Add')}</a>
+                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('question/fill/edit')?'':'hide'}" data-area='["9%","90%"]' title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>
                         <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled {:$auth->check('question/fill/del')?'':'hide'}" title="{:__('Delete')}" ><i class="fa fa-trash"></i> {:__('Delete')}</a>
                         <a href="javascript:;" class="btn btn-danger btn-import {:$auth->check('question/fill/import')?'':'hide'}" title="{:__('Import')}" id="btn-import-file" data-url="question/fill/import" data-mimetype="xlsx" data-multiple="false"><i class="fa fa-upload"></i> {:__('Import')}</a>
                         <a href="javascript:;" class="btn btn-success btn-export {:$auth->check('question/fill/export')?'':'hide'}" title="{:__('Export')}" id="btn-export-file" data-url="" data-mimetype="xlsx" data-multiple="false"><i class="fa fa-download"></i> {:__('Export')}</a>

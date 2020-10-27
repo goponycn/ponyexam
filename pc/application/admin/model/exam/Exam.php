@@ -124,6 +124,8 @@ class Exam extends Model
 						 $questions[$key1]['question'][$key2]['quantity']= $arr['quantity'];
 						 $questions[$key1]['question'][$key2]['answer']= $arr['answer'];
 						 $questions[$key1]['question'][$key2]['difficulty']= $arr['difficulty'];
+						 $questions[$key1]['question'][$key2]['attachment']= $arr['attachment'];
+						 
 				  }
 			}
 		 }

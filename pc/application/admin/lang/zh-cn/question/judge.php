@@ -9,6 +9,8 @@ return [
     'Autodecide' => '自动评分',
     'Title'      => '题目',
     'Content'    => '题目',
+	'Attachment' => '图片',
+	'Upload'     => '上传',	
     'Answer'     => '答案',
     'Analysis'   => '解析',
     'Operator'   => '出题人',
