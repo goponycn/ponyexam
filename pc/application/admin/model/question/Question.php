@@ -119,8 +119,9 @@ class Question extends Model
     }
 
    //随机组卷选题
-    public static function getQuestionIds($quantity=0,$type=0,$gradeid=0,$subjectid=0,$sectionid=0,$difficulty=0)
+    public static function getQuestionIds($quantity=0,$type=0,$gradeid=0,$subjectid=0,$sectionid=0,$difficulty=0,$custom='')
     {
+		$custom_ids=explode(",", $custom);
 		$map['status']='normal';
 		if ($type>0){
 			$map['type']=$type;
@@ -138,22 +139,43 @@ class Question extends Model
 			$map['difficulty']=$difficulty;
 		}
 		
-	    $all_ids = self::where($map)->column('id');
-		$rand_ids = [];
+		$i=0;
 		$ids=[];
-		
+		//自选题
+		foreach ($custom_ids as  $v) { 
+			if  (!in_array($v,$ids)){
+    			array_push($ids, $v);
+	    		$i++;
+		    	if ($i >=$quantity) return shuffle($ids);	
+			}
+        }
+
+	    //机选题
+		$all_ids = self::where($map)->column('id');
 		if (count($all_ids) <= $quantity) {
-			$ids =$all_ids;
+			foreach ($all_ids as  $v) {
+				if  (!in_array($v,$ids)){
+					array_push($ids, $v);
+					$i++;
+			    	if ($i >=$quantity) return shuffle($ids);	
+				}
+			}
 		} else {
 			$rand_ids = array_rand($all_ids, $quantity);
 			if (is_array($rand_ids)){
     			foreach ($rand_ids as  $v) { 
-	    		    array_push($ids, $all_ids[$v]);
-		    	}
+					if  (!in_array($all_ids[$v],$ids)){
+						array_push($ids, $all_ids[$v]);
+						$i++;
+						if ($i >=$quantity) return shuffle($ids);	
+					}
+	        	}
 			} else {
-				array_push($ids, $all_ids[$rand_ids]);
-			}
-			
+				if  (!in_array($all_ids[$rand_ids],$ids)){
+					array_push($ids, $all_ids[$v]);
+					$i++;
+				}
+			}	
 		}
 		shuffle($ids);
 		return $ids;
@@ -181,4 +203,27 @@ class Question extends Model
 	    $total = self::where($map)->count();
         return $total;
     }
+	
+	//自选题ID检查
+	 public static function checkQuestionId($type=0,$gradeid=0,$subjectid=0,$sectionid=0,$difficulty=0,$id=0)
+	 {
+			$map['status']='normal';
+			if ($type>0){
+				$map['type']=$type;
+			}		
+			if ($gradeid>0){
+				$map['grade_id']=$gradeid;
+			}
+			if ($subjectid>0){
+				$map['subject_id']=$subjectid;
+			}
+			if ($sectionid>0){
+				$map['section_id']=$sectionid;
+			}
+			if ($difficulty>0){
+				$map['difficulty']=$difficulty;
+			}
+			$map['id']=$id;
+		    return self::where($map)->count();
+	}
 }

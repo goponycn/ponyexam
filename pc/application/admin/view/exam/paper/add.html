@@ -43,15 +43,18 @@
 						<ins>{:__('Setting Name')}</ins>
 	                    <ins>{:__('Setting Quantity')}</ins>
 	                    <ins>{:__('Setting Score')}</ins>
+						<ins>{:__('Setting Questions')}</ins>
 	                </dd>
-	                <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> 追加</a></dd>
+	                <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> 追加</a>
+						<span><button type="button" id="fachoose-images" class="btn btn-primary btn-success btn-choose" data-input-id="<%=name%><%=index%>questions"  data-multiple="true" ref="type111"><i class="fa fa-list"></i> 查题</button></span>
+                    </dd>
 	                <!--请注意 dd和textarea间不能存在其它任何元素，实际开发中textarea应该添加个hidden进行隐藏-->
-	                <textarea name="row[setting]" class="form-control hide" cols="30" rows="5">[{"type":"1","title":"单项选择题","difficulty":"1","quantity":"20","score":"2"},{"type":"2","title":"多项选择题","difficulty":"2","quantity":"10","score":"2"},{"type":"3","title":"判断题","difficulty":"1","quantity":"2","score":"10"},{"type":"4","title":"填空题","difficulty":"3","quantity":"5","score":"2"},{"type":"9","title":"问答题","difficulty":"4","quantity":"1","score":"10"}]</textarea>
+	                <textarea name="row[setting]" class="form-control hide" cols="30" rows="5">[{"type":"1","title":"单项选择题","difficulty":"1","quantity":"20","score":"2","questions":""},{"type":"2","title":"多项选择题","difficulty":"2","quantity":"10","score":"2","questions":""},{"type":"3","title":"判断题","difficulty":"1","quantity":"2","score":"10","questions":""},{"type":"4","title":"填空题","difficulty":"3","quantity":"5","score":"2","questions":""},{"type":"9","title":"问答题","difficulty":"4","quantity":"1","score":"10","questions":""}]</textarea>
 	            </dl>
 	            <script id="setting" type="text/html">
 	                <dd class="form-inline setting-row">
 	                    <ins>
-	                        <select name="<%=name%>[<%=index%>][type]" id="" class="form-control selectpicker ">
+	                        <select name="<%=name%>[<%=index%>][type]" id="type111" class="form-control selectpicker ">
 	                            <option value="1" <%if(row.type==1){%>selected<%}%>>{:__('Single')}</option>
 	                            <option value="2" <%if(row.type==2){%>selected<%}%>>{:__('Multiple')}</option>
 	                            <option value="3" <%if(row.type==3){%>selected<%}%>>{:__('Judge')}</option>
@@ -61,11 +64,14 @@
 	                    </ins>
 						<ins><input type="text"  name="<%=name%>[<%=index%>][title]" class="form-control " value="<%=row.title%>" placeholder="名称"/></ins>
 						
-	                    <ins><input type="number" step="1" min='1' name="<%=name%>[<%=index%>][quantity]" class="form-control quantity scoreset" value="<%=row.quantity%>" placeholder="数量"/></ins>
+	                    <ins><input type="number" step="1" min='1' name="<%=name%>[<%=index%>][quantity]" class="form-control quantity scoreset" value="<%=row.quantity%>" placeholder="数量"/ ></ins>
 	                    <ins><input type="number" step="1" min='1' name="<%=name%>[<%=index%>][score]" class="form-control score scoreset" value="<%=row.score%>" placeholder="分值"/></ins>
-	                    <!--下面的两个按钮务必保留-->
+	                    <ins><input type="text"  name="<%=name%>[<%=index%>][questions]" class="form-control " value="<%=row.questions%>" placeholder="多题ID逗号分开"/></ins>
+						<!--下面的两个按钮务必保留-->
 	                    <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
 	                    <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+				
+						
 	                </dd>
 	            </script>
 	        </div>

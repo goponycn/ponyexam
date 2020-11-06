@@ -1,0 +1,26 @@
+<div class="panel panel-default panel-intro">
+    <div class="panel-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="one">
+                <div class="widget-body no-padding">
+                    <div id="toolbar" class="toolbar">
+                        {:build_toolbar('refresh')}
+
+                        <a class="btn btn-danger btn-choose-multi"><i class="fa fa-close"></i> 关闭</a>
+
+                    </div>
+                    <table id="table" class="table table-bordered table-hover" width="100%">
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+	var gradeList = {:json_encode($gradeList)};
+    var sujectList = {:json_encode($subjectList)};
+	var sectionList = {:json_encode($sectionList)};
+</script>

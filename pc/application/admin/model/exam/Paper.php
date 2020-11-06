@@ -32,6 +32,7 @@ class Paper extends Model
         'status_text'
     ];
     
+
     protected static function init()
     {
   		self::beforeInsert(function ($row) {
@@ -48,8 +49,9 @@ class Paper extends Model
 				    $quantity = intval($value['quantity']);
 			 	    $type = intval($value['type']);
 					$score = intval($value['score']);
-					$totalscore +=  $quantity * $score;											
-				    $questions[$key]= \app\admin\model\question\Question::getQuestionIds($quantity,$type,$grade_id,$subject_id,$section_id);
+					$totalscore +=  $quantity * $score;	
+					$custom=$value['questions'];
+					$questions[$key]=\app\admin\model\question\Question::getQuestionIds($quantity,$type,$grade_id,$subject_id,$section_id,0,$custom);   
 				}
 			    $row->questions =  json_encode($questions);
 			} else {
@@ -77,6 +79,7 @@ class Paper extends Model
 				    $grade_id = intval($row['grade_id']);
 				    $subject_id= intval($row['subject_id']);
 				    $section_id= intval($row['section_id']);
+					$constomqids=$row['questions'];
 				    foreach ($setting as $key => $value) {
 					    $quantity = intval($value['quantity']);
 				 	    $type = intval($value['type']);

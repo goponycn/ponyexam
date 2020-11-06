@@ -39,7 +39,7 @@ class Question extends Backend
     protected $gradeList = null;
     protected $difficultyList = null;
     protected $autodecideList = null;
-	protected $type = 0;
+	public    $type = 1;
 	
     public function _initialize()
     {
@@ -97,10 +97,20 @@ class Question extends Backend
 				} else {
 					   $v['type'] = '-';
 				}	
+				if (array_key_exists($v['grade_id'],$this->gradeList)){
+				       $v['grade_id'] = $this->gradeList[$v['grade_id']];			
+				} else {
+					   $v['grade_id'] = '-';
+				}	
 				if (array_key_exists($v['subject_id'],$this->subjectList)){
                        $v['subject_id'] = $this->subjectList[$v['subject_id']];			
 				} else {
 					   $v['subject_id'] = '-';
+				}	
+				if (array_key_exists($v['section_id'],$this->sectionList)){
+				       $v['section_id'] = $this->sectionList[$v['section_id']];			
+				} else {
+					   $v['section_id'] = '-';
 				}	
 
             }
@@ -108,7 +118,7 @@ class Question extends Backend
 
 
             foreach ($list as $row) {
-                $row->visible(['id','subject_id','type','title','createtime','weigh','status']);
+                $row->visible(['id','subject_id','grade_id','section_id','type','title','createtime','weigh','status']);
                 
             }
             $list = collection($list)->toArray();

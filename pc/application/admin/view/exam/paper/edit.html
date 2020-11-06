@@ -42,8 +42,11 @@
 							<ins>{:__('Setting Name')}</ins>
 		                    <ins>{:__('Setting Quantity')}</ins>
 		                    <ins>{:__('Setting Score')}</ins>
+							<ins>{:__('Setting Questions')}</ins>
 		                </dd>
-		                <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> 追加</a></dd>
+		                <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i> 追加</a>
+						<span><button type="button" id="fachoose-images" class="btn btn-primary btn-success btn-choose" data-input-id="<%=name%><%=index%>questions"  data-multiple="true" ref="type111"><i class="fa fa-list"></i> 查题</button></span>
+						</dd>
 		                <!--请注意 dd和textarea间不能存在其它任何元素，实际开发中textarea应该添加个hidden进行隐藏-->
 		                <textarea name="row[setting]" class="form-control hide" cols="30" rows="5">{$row.setting|htmlentities}</textarea>
 		            </dl>
@@ -62,7 +65,9 @@
 							
 		                    <ins><input type="number" step="1" min='1' name="<%=name%>[<%=index%>][quantity]" class="form-control quantity scoreset" value="<%=row.quantity%>" placeholder="数量"/></ins>
 		                    <ins><input type="number" step="1" min='1' name="<%=name%>[<%=index%>][score]" class="form-control score scoreset" value="<%=row.score%>" placeholder="分值"/></ins>
-		                    <!--下面的两个按钮务必保留-->
+		                    <ins><input type="text"  name="<%=name%>[<%=index%>][questions]" class="form-control " value="<%=row.questions%>" placeholder="多题ID逗号分开"/></ins>
+		                   
+							<!--下面的两个按钮务必保留-->
 		                    <span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span>
 		                    <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
 		                </dd>

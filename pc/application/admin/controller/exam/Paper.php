@@ -12,6 +12,7 @@
 namespace app\admin\controller\exam;
 
 use app\common\controller\Backend;
+use think\Db;
 
 /**
  * 试卷管理
@@ -118,6 +119,21 @@ class Paper extends Backend
     }
 	
 	/**
+	 * 选择
+	 */
+	public function select()
+	{
+	    if ($this->request->isAjax()) {
+			$question = new \app\admin\controller\question\Question();
+	        return $question->index();
+	    }
+		$this->view->assign("gradeList", $this->gradeList );
+		$this->view->assign("subjectList", $this->subjectList);		
+		$this->view->assign("sectionList", $this->sectionList);		
+	    return $this->view->fetch();
+	}
+	
+	/**
 	 * 添加
 	 */
 	public function add()
@@ -139,14 +155,30 @@ class Paper extends Backend
 					
 					$totalscore =0;
 		            foreach ($setting as $key => $value) {						
+		                $type = intval($value['type']);
 		                $quantity = intval($value['quantity']);
-						$type = intval($value['type']);						
-		                $score = intval($value['score']);
 		                if ($quantity <= 0) {
 		                    $this->error(__('Error Quantity',$key + 1));
 		                }
+		                $score = intval($value['score']);
 		                if ($score <= 0) {
 		                    $this->error(__('Error Score',$key + 1));
+		                }
+		                
+		                if (array_key_exists('questions',$value)){
+		                	$q =  trim($value['questions']);						
+		                    if ($q){
+		                        $questions = explode(",", $q);  
+		                	    if (count($questions)>$quantity){
+		                		    $this->error(__('Error Custom Questions Quantity',$key + 1));
+		                	    }
+		                	    foreach($questions as $question){ 
+		                		    $check= \app\admin\model\question\Question::checkQuestionId($type,$grade_id,$subject_id,$section_id,0,$question);
+		                		    if (!$check){
+		                		        $this->error(__('Error Custom Questions id',$question));
+		                		    }
+		                	    }
+		                	}	
 		                }
 						$total= \app\admin\model\question\Question::getQuestionTotal($type,$grade_id,$subject_id,$section_id);
 						if ($total < $quantity) {
@@ -194,15 +226,32 @@ class Paper extends Backend
 		            }
 					$totalscore =0;
 		            foreach ($setting as $key => $value) {
+						$type = intval($value['type']);	
 		                $quantity = intval($value['quantity']);
-						$type = intval($value['type']);						
-		                $score = intval($value['score']);
 		                if ($quantity <= 0) {
 		                    $this->error(__('Error Quantity',$key + 1));
 		                }
-		                if ($score <= 0) {
-		                    $this->error(__('Error Score',$key + 1));
-		                }
+		                $score = intval($value['score']);
+	                    if ($score <= 0) {
+	                        $this->error(__('Error Score',$key + 1));
+	                    }
+
+						if (array_key_exists('questions',$value)){
+    						$q =  trim($value['questions']);						
+						    if ($q){
+						        $questions = explode(",", $q);  
+							    if (count($questions)>$quantity){
+								    $this->error(__('Error Custom Questions Quantity',$key + 1));
+							    }
+							    foreach($questions as $question){ 
+								    $check= \app\admin\model\question\Question::checkQuestionId($type,$grade_id,$subject_id,$section_id,0,$question);
+								    if (!$check){
+								        $this->error(__('Error Custom Questions id',$question));
+								    }
+							    }
+							}	
+						}
+
 						$total= \app\admin\model\question\Question::getQuestionTotal($type,$grade_id,$subject_id,$section_id);
 						if ($total < $quantity) {
 							 $this->error(__('Error Not Enough',$key + 1));
@@ -257,10 +306,7 @@ class Paper extends Backend
 	    $this->view->assign("questions", $questions);
 	
 	    return $this->view->fetch();
-	
-	
-	
-					
+						
 	}	
 	/**
 	 * 题型
