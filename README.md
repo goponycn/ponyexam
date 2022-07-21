@@ -18,7 +18,7 @@
 
 请下载源码安装体验全部功能
 
-下载解压后将public目录配置到Nginx/Apache的虚拟主机目录中，运行 http://您的站点/install.php 自动完成安装。
+下载解压后将pc/public目录配置到Nginx/Apache的虚拟主机目录中，运行 http://您的站点/install.php 自动完成安装。
 
 ## 界面截图
 ![考试界面](https://gitee.com/ponyedu/ponyexam/raw/master/img-raw/index-paper.png)
@@ -32,6 +32,8 @@
 QQ: 3421518028
 
 Gitee: https://gitee.com/ponyedu/
+
+网站: https://www.gopony.cn
 
 ## 特别鸣谢
 
@@ -54,10 +56,10 @@ SelectPage: https://github.com/TerryZ/SelectPage
 
 ## 版权信息
 
-小马考试ponyexam遵循Apache2开源协议发布，并提供免费使用。
+小马考试通ponyexam开源版遵循Apache2开源协议发布，并提供免费使用。
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2020-2022 by 小马考试ponyexam
+版权所有Copyright © 2020-2022 by 小马考试通ponyexam
 
 All rights reserved。

@@ -1,10 +1,10 @@
 <?php
 
 return array (
-  'name' => '小马考试',
+  'name' => '小马考试通',
   'beian' => '',
   'cdnurl' => '',
-  'version' => '1.0.1',
+  'version' => '1.2.0',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 

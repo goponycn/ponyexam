@@ -60,7 +60,7 @@ class Install extends Command
 
         $installLockFile = INSTALL_PATH . "install.lock";
         if (is_file($installLockFile) && !$force) {
-            throw new Exception("\nFastAdmin already installed!\nIf you need to reinstall again, use the parameter --force=true ");
+            throw new Exception("\nPonyExam already installed!\nIf you need to reinstall again, use the parameter --force=true ");
         }
 
         $adminUsername = 'admin';
@@ -223,11 +223,11 @@ class Install extends Command
         $data = ['username' => $adminUsername, 'email' => $adminEmail, 'password' => $newPassword, 'salt' => $newSalt];
         $instance->name('admin')->where('username', 'admin')->update($data);
         // 修改后台入口
-        $adminName = '';
-        if (is_file($adminFile)) {
-            $adminName = Random::alpha(10) . '.php';
-            rename($adminFile, ROOT_PATH . 'public' . DS . $adminName);
-        }
+        $adminName = 'admin.php';
+       // if (is_file($adminFile)) {
+       //     $adminName = Random::alpha(10) . '.php';
+       //     rename($adminFile, ROOT_PATH . 'public' . DS . $adminName);
+       // }
 
         //修改站点名称
         if ($siteName != __('My Website')) {

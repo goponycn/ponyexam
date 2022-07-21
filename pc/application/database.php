@@ -16,7 +16,7 @@ return [
     // 数据库类型
     'type'            => Env::get('database.type', 'mysql'),
     // 服务器地址
-    'hostname'        => Env::get('database.hostname', '127.0.0.1'),
+    'hostname'        => Env::get('database.hostname', 'localhost'),
     // 数据库名
     'database'        => Env::get('database.database', 'ponyexam'),
     // 用户名
@@ -24,7 +24,7 @@ return [
     // 密码
     'password'        => Env::get('database.password', '123456'),
     // 端口
-    'hostport'        => Env::get('database.hostport', ''),
+    'hostport'        => Env::get('database.hostport', '3306'),
     // 连接dsn
     'dsn'             => '',
     // 数据库连接参数
