@@ -1,4 +1,4 @@
-小马考试ponyexam是基于PHP+MySQL开发的免费开源在线教育源代码系统，能够快速搭建在线考试平台，系统支持多种题型：单选题、多选题、判断题、填空题、以及其他各种题型。支持在线考试，支持自动和人工两种方式批阅试卷。联系QQ3421518028 
+小马考试通ponyexam开源版是基于PHP开发的免费开源在线考试系统，能够快速搭建在线考试平台，系统支持多种题型：单选题、多选题、判断题、填空题、问答题等题型。支持在线考试，支持自动和人工两种方式批阅试卷。适合各类学校、教培系统、企业内训等场景使用。如需咨询或帮助联系QQ3421518028 
 
 ## 主要特性
 
@@ -21,6 +21,8 @@
 下载解压后将public目录配置到Nginx/Apache的虚拟主机目录中，运行 http://您的站点/install.php 自动完成安装。
 
 ## 界面截图
+![考试界面](https://gitee.com/ponyedu/ponyexam/raw/master/img-raw/index-paper.png)
+
 ![控制台](https://gitee.com/ponyedu/ponyexam/raw/master/img-raw/admin-dashboard.png)
 
 ## 问题反馈
@@ -56,6 +58,6 @@ SelectPage: https://github.com/TerryZ/SelectPage
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2017-2020 by 小马考试ponyexam
+版权所有Copyright © 2020-2022 by 小马考试ponyexam
 
 All rights reserved。
