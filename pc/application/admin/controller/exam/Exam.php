@@ -107,9 +107,7 @@ class Exam extends Backend
 	 * 编辑
 	 */
 	public function add()
-	{
-		
-	
+	{	
 	    return parent::add();
 	}
 		
@@ -121,7 +119,6 @@ class Exam extends Backend
 	    $row = $this->model->get($ids);
 	    if (!$row)
 	        $this->error(__('No Results were found'));
-	
 	
 	    return parent::edit($ids);
 	}
@@ -156,12 +153,11 @@ class Exam extends Backend
 		if (!$row['paper_id'])	{
 			$this->error(__('Paper Is Null'));
 		}
-
 		
-	    if ($this->request->isAjax()) {
+	 //   if ($this->request->isAjax()) {
 			$this->model->start($ids);
 	        $this->success(__('Exam Activated Success',$ids), null, ['id' => $ids]);
-	    }
+	 //   }
 		
 	    
 	}
@@ -178,7 +174,7 @@ class Exam extends Backend
 		      $this->error(__('Exam Has Been Unactivated'));
 	    }
 		
-	    if ($this->request->isAjax()) {
+	   // if ($this->request->isAjax()) {
     		  $map['state']  = array('>',0);
 	    	  $map['exam_id']  = array('in',$ids);
 			  $arr=Db::name('exam_user')->where($map)->find();
@@ -187,7 +183,7 @@ class Exam extends Backend
 			  }
 		      $this->model->cancel($ids);
 	          $this->success(__('Exam Unactivated Success',$ids), null, ['id' => $ids]);
-	    }	
+	   // }	
 	}
 	
 	/**
