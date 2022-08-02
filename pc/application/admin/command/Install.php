@@ -228,7 +228,10 @@ class Install extends Command
        //     $adminName = Random::alpha(10) . '.php';
        //     rename($adminFile, ROOT_PATH . 'public' . DS . $adminName);
        // }
-
+	   // 后台.htaccess 文件重新拷贝
+	    $htaccessFile = ROOT_PATH . 'public' . DS . '.htaccess';
+        unlink($htaccessFile);
+	    copy(ROOT_PATH . 'public' . DS . 'apache.htaccess', $htaccessFile);  
         //修改站点名称
         if ($siteName != __('My Website')) {
             $instance->name('config')->where('name', 'name')->update(['value' => $siteName]);
