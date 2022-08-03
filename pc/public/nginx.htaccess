@@ -1,0 +1,14 @@
+﻿#nginx伪静态重写需要在nginx.conf进行修改
+location / {
+
+index index.html index.htm index.php;
+
+#伪静态重写
+
+if (!-e $request_filename) {
+
+rewrite ^(.*)$ /index.php?s=/$1 last;
+
+break;
+
+}
