@@ -19,7 +19,7 @@
         "topthink/framework": "~5.0.24",
         "overtrue/wechat": "~3.1",
         "endroid/qr-code": "^1.9",
-        "topthink/think-captcha": "^1.0",
+        "topthink/think-captcha": "1.*",
         "mtdowling/cron-expression": "^1.2",
         "phpmailer/phpmailer": "~6.0.6",
         "karsonzhang/fastadmin-addons": "~1.1.9",

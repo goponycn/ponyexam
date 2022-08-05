@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 namespace think\captcha;
-
+ob_clean();
 use think\Config;
 
 class CaptchaController
