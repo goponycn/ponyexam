@@ -260,9 +260,13 @@ return [
         //是否开启前台会员中心
         'usercenter'            => true,
         //会员注册验证码类型email/mobile/wechat/text/false
-        'user_register_captcha' => 'text',
+        'user_register_captcha' => false,
         //登录验证码
         'login_captcha'         => false,
+        //注册token
+        'user_register_token'   => false,
+        //登录token
+        'login_token'           => false,
         //登录失败超过10次则1天后重试
         'login_failure_retry'   => true,
         //是否同一账号同一时间只能在一个地方登录
