@@ -17,10 +17,6 @@ use think\DB;
 class Exam extends Model
 {
 
-    
-
-    
-
     // 表名
     protected $name = 'exam';
     

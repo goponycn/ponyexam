@@ -15,7 +15,7 @@ use app\common\controller\Backend;
 use app\admin\model\exam\Paper;
 use think\Db;
 /**
- * 考试管理
+ * 考场管理
  *
  * @icon fa fa-circle-o
  */
@@ -154,12 +154,10 @@ class Exam extends Backend
 			$this->error(__('Paper Is Null'));
 		}
 		
-	 //   if ($this->request->isAjax()) {
-			$this->model->start($ids);
-	        $this->success(__('Exam Activated Success',$ids), null, ['id' => $ids]);
-	 //   }
-		
-	    
+	   // 去掉判断兼容各浏览器  $this->request->isAjax()
+	   $this->model->start($ids);
+	   $this->success(__('Exam Activated Success',$ids), null, ['id' => $ids]);
+	   
 	}
 	
 	/**
@@ -174,16 +172,15 @@ class Exam extends Backend
 		      $this->error(__('Exam Has Been Unactivated'));
 	    }
 		
-	   // if ($this->request->isAjax()) {
-    		  $map['state']  = array('>',0);
-	    	  $map['exam_id']  = array('in',$ids);
-			  $arr=Db::name('exam_user')->where($map)->find();
-			  if ($arr)	{
-			        $this->error(__('Exam Has Been Used'));
-			  }
-		      $this->model->cancel($ids);
-	          $this->success(__('Exam Unactivated Success',$ids), null, ['id' => $ids]);
-	   // }	
+	   // 去掉判断兼容各浏览器  $this->request->isAjax()
+	    $map['state']  = array('>',0);
+	    $map['exam_id']  = array('in',$ids);
+		$arr=Db::name('exam_user')->where($map)->find();
+		if ($arr)	{
+			   $this->error(__('Exam Has Been Used'));
+		}
+		$this->model->cancel($ids);
+	    $this->success(__('Exam Unactivated Success',$ids), null, ['id' => $ids]);	
 	}
 	
 	/**

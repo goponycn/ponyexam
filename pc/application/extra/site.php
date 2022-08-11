@@ -4,7 +4,7 @@ return array (
   'name' => '小马考试通',
   'beian' => '',
   'cdnurl' => '',
-  'version' => '1.2.0',
+  'version' => '1.2.1',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 

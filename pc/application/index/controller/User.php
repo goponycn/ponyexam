@@ -98,14 +98,24 @@ class User extends Frontend
             $mobile = $this->request->post('mobile', '');
             $captcha = $this->request->post('captcha');
             $token = $this->request->post('__token__');
-            $rule = [
-                'username'  => 'require|length:3,30',
-                'password'  => 'require|length:6,30',
-                'email'     => 'require|email',
-                'mobile'    => 'regex:/^1\d{10}$/',
-                '__token__' => 'require|token',
-            ];
-
+			
+            if (Config::get('fastadmin.user_register_token')) {
+                $rule = [
+                    'username'  => 'require|length:3,30',
+                    'password'  => 'require|length:6,30',
+                    'email'     => 'require|email',
+                    'mobile'    => 'regex:/^1\d{10}$/',
+                    '__token__' => 'require|token',
+                ];
+            } else {
+                $rule = [
+                    'username'  => 'require|length:3,30',
+                    'password'  => 'require|length:6,30',
+                    'email'     => 'require|email',
+                    'mobile'    => 'regex:/^1\d{10}$/',
+                ];
+            }
+			
             $msg = [
                 'username.require' => 'Username can not be empty',
                 'username.length'  => 'Username must be 3 to 30 characters',
@@ -175,11 +185,19 @@ class User extends Frontend
             $password = $this->request->post('password');
             $keeplogin = (int)$this->request->post('keeplogin');
             $token = $this->request->post('__token__');
-            $rule = [
-                'account'   => 'require|length:3,50',
-                'password'  => 'require|length:6,30',
-                '__token__' => 'require|token',
-            ];
+
+            if (Config::get('fastadmin.login_token')) {
+                $rule = [
+                    'account'   => 'require|length:3,50',
+                    'password'  => 'require|length:6,30',
+                    '__token__' => 'require|token',
+                ];
+            } else {
+				$rule = [
+				    'account'   => 'require|length:3,50',
+				    'password'  => 'require|length:6,30',
+                ];
+            }
 
             $msg = [
                 'account.require'  => 'Account can not be empty',

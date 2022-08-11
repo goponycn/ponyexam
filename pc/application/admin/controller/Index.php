@@ -75,11 +75,19 @@ class Index extends Backend
             $password = $this->request->post('password');
             $keeplogin = $this->request->post('keeplogin');
             $token = $this->request->post('__token__');
-            $rule = [
-                'username'  => 'require|length:3,30',
-                'password'  => 'require|length:3,30',
-                '__token__' => 'require|token',
-            ];
+            if (Config::get('fastadmin.login_token')) {
+                $rule = [
+                    'username'  => 'require|length:3,30',
+                    'password'  => 'require|length:3,30',
+                    '__token__' => 'require|token',
+                ];
+            } else {
+                $rule = [
+                    'username'  => 'require|length:3,30',
+                    'password'  => 'require|length:3,30',
+                ];
+            }
+						
             $data = [
                 'username'  => $username,
                 'password'  => $password,
