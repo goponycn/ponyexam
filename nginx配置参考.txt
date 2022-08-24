@@ -1,8 +1,8 @@
-server {
+ï»¿server {
         listen        80;
-        # ¾ßÌåÓòÃûĞèÒªĞŞ¸Ä
+        # å…·ä½“åŸŸåéœ€è¦ä¿®æ”¹
         server_name  localhost;
-        # Êµ¼Ê°²×°µÄÄ¿Â¼ĞèÒªĞŞ¸Ä
+        # å®é™…å®‰è£…çš„ç›®å½•éœ€è¦ä¿®æ”¹
         root   "d:/ponyexam/pc/public";
         location / {
             index index.php index.html error/index.html;
