@@ -1,5 +1,6 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
-    <div class="form-group">
+    <input id="id" name="row[id]" type="hidden" value="{$row.id|htmlentities}" />
+	<div class="form-group">
        <label for="c-grade_id" class="control-label col-xs-12 col-sm-2">{:__('Grade_id')}:</label>
        <div class="col-xs-12 col-sm-8">
            {$gradeList}

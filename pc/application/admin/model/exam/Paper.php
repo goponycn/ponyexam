@@ -37,6 +37,7 @@ class Paper extends Model
     {
   		self::beforeInsert(function ($row) {
 		   if ((isset($row['ismade'])) && (isset($row['setting']))) {
+			
 			 $totalscore=0;	 
 			 $setting=json_decode($row['setting'],true);
 
@@ -48,11 +49,13 @@ class Paper extends Model
 			    foreach ($setting as $key => $value) {
 				    $quantity = intval($value['quantity']);
 			 	    $type = intval($value['type']);
+				
 					$score = intval($value['score']);
 					$totalscore +=  $quantity * $score;	
 					$custom=$value['questions'];
 					$questions[$key]=\app\admin\model\question\Question::getQuestionIds($quantity,$type,$grade_id,$subject_id,$section_id,0,$custom);   
 				}
+				
 			    $row->questions =  json_encode($questions);
 			} else {
 				     foreach ($setting as $key => $value) {
@@ -70,7 +73,7 @@ class Paper extends Model
 		
 		self::beforeUpdate(function ($row) {
 		    $changed = $row->getChangedData();
-			
+
 		    if (isset($changed['setting'])) {
 			   $totalscore=0;
 			   $setting=json_decode($row['setting'],true);				
@@ -78,16 +81,19 @@ class Paper extends Model
 				    $questions=null;
 				    $grade_id = intval($row['grade_id']);
 				    $subject_id= intval($row['subject_id']);
-				    $section_id= intval($row['section_id']);
-					$constomqids=$row['questions'];
+				    $section_id= intval($row['section_id']);					
+					
 				    foreach ($setting as $key => $value) {
 					    $quantity = intval($value['quantity']);
 				 	    $type = intval($value['type']);
 						$score = intval($value['score']);
-						$totalscore +=  $quantity * $score;								
-					    $questions[$key]= \app\admin\model\question\Question::getQuestionIds($quantity,$type,$grade_id,$subject_id,$section_id);
+						$totalscore +=  $quantity * $score;	
+						$constomqids=$value['questions'];
+					    $questions[$key]= \app\admin\model\question\Question::getQuestionIds($quantity,$type,$grade_id,$subject_id,$section_id,0,$constomqids);
 					}
-				    $row->questions =  json_encode($questions);									
+					
+				    $row->questions =  json_encode($questions);	
+												
 		        } else {
 					foreach ($setting as $key => $value) {
 					     $quantity = intval($value['quantity']);

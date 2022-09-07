@@ -208,6 +208,7 @@ class Paper extends Backend
 	public function edit($ids = NULL)
 	{
 	    $row = $this->model->get($ids);
+
 	    if (!$row)
 	        $this->error(__('No Results were found'));
 		$this->request->filter(['strip_tags', 'trim']);
@@ -262,6 +263,7 @@ class Paper extends Backend
 						     $this->error(__('Error Pass Score'));
 					}
 		       }
+			   $this->model->update($row);
 			   $this->success();
 		}   	
 	    $this->view->assign('gradeList', build_select('row[grade_id]', $this->gradeList, $row['grade_id'], ['class' => 'form-control selectpicker']));
@@ -269,8 +271,8 @@ class Paper extends Backend
 	    $sectionList=$this->sectionList;
 		$sectionList['0']=__('All');
 		$this->view->assign('sectionList', build_select('row[section_id]', $sectionList, $row['section_id'], ['class' => 'form-control selectpicker']));
-	
-	    return parent::edit($ids);
+	    $this->view->assign('row', $row);
+		return $this->fetch();
 	}
 	
 	/**

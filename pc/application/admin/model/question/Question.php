@@ -143,36 +143,48 @@ class Question extends Model
 		$ids=[];
 		//自选题
 		foreach ($custom_ids as  $v) { 
-			if  (!in_array($v,$ids)){
-    			array_push($ids, $v);
+			if  ((trim($v) != "") && (!in_array($v,$ids))){		
+				array_push($ids, $v);
 	    		$i++;
-		    	if ($i >=$quantity) return shuffle($ids);	
+		    	if ($i >=$quantity){
+					shuffle($ids);
+					return $ids;
+				} 
+					
 			}
         }
+		
 
 	    //机选题
 		$all_ids = self::where($map)->column('id');
+		
 		if (count($all_ids) <= $quantity) {
 			foreach ($all_ids as  $v) {
-				if  (!in_array($v,$ids)){
+				if (($v!= 0) && (!in_array($v,$ids))){
 					array_push($ids, $v);
 					$i++;
-			    	if ($i >=$quantity) return shuffle($ids);	
+					if ($i >=$quantity){
+						shuffle($ids);
+						return $ids;
+					} 
 				}
 			}
 		} else {
 			$rand_ids = array_rand($all_ids, $quantity);
 			if (is_array($rand_ids)){
     			foreach ($rand_ids as  $v) { 
-					if  (!in_array($all_ids[$v],$ids)){
+					if  (($v>= 0) && (!in_array($all_ids[$v],$ids))){
 						array_push($ids, $all_ids[$v]);
 						$i++;
-						if ($i >=$quantity) return shuffle($ids);	
+						if ($i >=$quantity){
+							shuffle($ids);
+							return $ids;
+						} 
 					}
 	        	}
 			} else {
-				if  (!in_array($all_ids[$rand_ids],$ids)){
-					array_push($ids, $all_ids[$v]);
+				if  (($rand_ids!= 0) &&(!in_array($all_ids[$rand_ids],$ids))){
+					array_push($ids, $all_ids[$rand_ids]);
 					$i++;
 				}
 			}	

@@ -149,15 +149,14 @@ class Exam extends Backend
 		if ($row['state']<>'0')	{
 			$this->error(__('Exam Has Been Activated'));
 		}
-
+       
 		if (!$row['paper_id'])	{
 			$this->error(__('Paper Is Null'));
 		}
 		
-	   // 去掉判断兼容各浏览器  $this->request->isAjax()
-	   $this->model->start($ids);
-	   $this->success(__('Exam Activated Success',$ids), null, ['id' => $ids]);
-	   
+	    // 去掉判断兼容各浏览器  $this->request->isAjax()
+	    $this->model->start($ids);
+	    $this->success(__('Exam Activated Success',$ids), null, ['id' => $ids]);
 	}
 	
 	/**
